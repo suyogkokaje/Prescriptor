@@ -1,0 +1,85 @@
+.page-parent{
+    width:50%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    /* align-items:center; */
+    margin-top: 4rem;
+}
+
+.page-parent .heading{
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.page-parent  .address{
+    margin-bottom: 0.5rem;
+}
+
+.page-parent .personal{
+    /* text-align: left; */
+    display: flex;
+    justify-content: space-around;
+    /* gap: 50%; */
+    width: 100%;
+}
+
+.page-parent  .name{
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.page-parent  .time{
+    margin-bottom: 0.5rem;
+}
+
+.page-parent span{
+    font-weight: 600;
+    font-size: 1.1rem;
+    /* text-align: left; */
+}
+
+.page{
+    width:80%;
+    height:90%;
+    display:flex;
+    flex-direction:column;
+    /* justify-content:center; */
+    align-items:center;
+    border:3px solid black;
+}
+
+.line{
+    width:90%;
+    height:2px;
+    background-color:black;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.patient{
+    display:flex;
+    width:90%;
+    justify-content:space-between;
+}
+
+.prescription-table {
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 1rem;
+  }
+  
+  .prescription-table th,
+  .prescription-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .prescription-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
