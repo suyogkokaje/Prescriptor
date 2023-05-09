@@ -1,9 +1,12 @@
-import React from "react";
+import { useParams } from 'react-router-dom';
 
-const PatientHistory = () => {
-  
-  // Display patient details using the patientName variable
-  return <h1>Name</h1>;
+const PatientPage = () => {
+  const { name } = useParams();
+  return (
+    <div>
+      <h1>{name}</h1>
+    </div>
+  );
 };
 
-export default PatientHistory;
+export default PatientPage;

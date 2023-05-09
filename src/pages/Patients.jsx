@@ -65,7 +65,7 @@ const Patients = () => {
       <div className="patient-list">
         <ul>
           {currentPatients.map((patient) => (
-            <Link style={{ textDecoration: 'none', color:'black' }} to={`/patients/${patient.toLowerCase().replace(" ", "-")}`} key={patient}>
+            <Link style={{ textDecoration: 'none', color:'black' }} to={`/patients/${patient}`} key={patient}>
                 <li key={patient}>{patient}</li>
             </Link>
           ))}
