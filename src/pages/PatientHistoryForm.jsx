@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./patienthistoryform.css";
+import axios from "axios";
 
 const PatientHistoryForm = () => {
   const [name, setName] = useState("");
-  const [address,setAddress] = useState("")
+  const [address, setAddress] = useState("");
   const [age, setAge] = useState();
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
@@ -16,79 +17,116 @@ const PatientHistoryForm = () => {
   const [spO2, setSpO2] = useState();
   const [pulse, setPulse] = useState();
   const [options, setOptions] = useState([
-    { id: "option1", label: "Option 1", value: false },
-    { id: "option2", label: "Option 2", value: false },
-    { id: "option3", label: "Option 3", value: false },
-    { id: "option4", label: "Option 4", value: false },
-    { id: "option5", label: "Option 5", value: false },
-    { id: "option6", label: "Option 6", value: false },
-    { id: "option7", label: "Option 7", value: false },
-    { id: "option8", label: "Option 8", value: false },
-    { id: "option9", label: "Option 9", value: false },
-    { id: "option10", label: "Option 10", value: false },
-    { id: "option11", label: "Option 11", value: false },
-    { id: "option12", label: "Option 12", value: false },
-    { id: "option13", label: "Option 13", value: false },
-    { id: "option14", label: "Option 14", value: false },
-    { id: "option15", label: "Option 15", value: false },
-    { id: "option16", label: "Option 16", value: false },
-    { id: "option17", label: "Option 17", value: false },
-    { id: "option18", label: "Option 18", value: false },
-    { id: "option19", label: "Option 19", value: false },
-    { id: "option20", label: "Option 20", value: false },
-    { id: "option21", label: "Option 21", value: false },
-    { id: "option22", label: "Option 22", value: false },
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
   ]);
-  const[menshistory,setMenshistory] = useState("")
-  const handleOptionChange = (id) => {
-    const updatedOptions = options.map((option) => {
-      if (option.id === id) {
-        return { ...option, value: !option.value };
-      }
-      return option;
-    });
-    setOptions(updatedOptions);
+  const [menshistory, setMenshistory] = useState("");
+  const handleOptionChange = (index) => {
+    const newOptions = [...options];
+    newOptions[index] = !newOptions[index];
+    setOptions(newOptions);
   };
 
-  const optionCheckboxes = options.map((option) => (
+  const optionCheckboxes = options.map((option, index) => (
     <label>
       <input
         type="checkbox"
-        id={option.id}
-        checked={option.value}
-        onChange={() => handleOptionChange(option.id)}
+        id={index}
+        checked={option}
+        onChange={() => handleOptionChange(index)}
       />
-      {option.label}
+      Option {index + 1}
     </label>
   ));
 
+  const patientHistory = {
+    name,
+    address,
+    age,
+    weight,
+    height,
+    gender,
+    mobileNo,
+    bloodgroup,
+    systolicBP,
+    diastolicBP,
+    spO2,
+    pulse,
+    options,
+    menshistory,
+  };
+
+  const patientHistoryObj = {
+    name: patientHistory.name,
+    address: patientHistory.address,
+    age: patientHistory.age,
+    weight: patientHistory.weight,
+    height: patientHistory.height,
+    gender: patientHistory.gender,
+    mobileNo: patientHistory.mobileNo,
+    bloodgroup: patientHistory.bloodgroup,
+    systolicBP: patientHistory.systolicBP,
+    diastolicBP: patientHistory.diastolicBP,
+    spO2: patientHistory.spO2,
+    pulse: patientHistory.pulse,
+    options: patientHistory.options,
+    menshistory: patientHistory.menshistory,
+  };
+
+  // const formData = JSON.stringify(patientHistoryObj);
+
   const handleHistory = (e) => {
     e.preventDefault();
-    const patientHistory = {
-      name,
-      address,
-      age,
-      weight,
-      height,
-      gender,
-      mobileNo,
-      bloodgroup,
-      systolicBP,
-      diastolicBP,
-      spO2,
-      pulse,
-      options,
-      menshistory
-    };
+
     // submit the form data
-    console.log(patientHistory);
+    // console.log(patientHistory);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/patientHistory",
+        patientHistoryObj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // console.log(formData);
+      // console.log(response);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
     <div className="history">
       <div className="form-heading">Patient History Form</div>
       <div className="form">
-        <form>
+        <form onSubmit={handleSubmit}>
           <label className="primaryField">
             Name:
             <input
@@ -222,7 +260,7 @@ const PatientHistoryForm = () => {
               required
             />
           </label>
-          <button onClick={handleHistory}>Add</button>
+          <button type="submit">Add</button>
         </form>
       </div>
     </div>

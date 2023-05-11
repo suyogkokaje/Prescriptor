@@ -1,0 +1,100 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+// app.use(express.json());
+
+mongoose.connect('mongodb+srv://suyogkokaje:12345@cluster0.lhx57xp.mongodb.net/', { useNewUrlParser: true });
+
+// {
+//     "name":"Suyog Kokaje",
+//     "address":"rtn",
+//     "age":10,
+//     "weight":10,
+//     "height":150,
+//     "gender":"male",
+//     "mobileno":1234567890,
+//     "bloodgroup":"A+ve",
+//     "systolicBP":90,
+//     "diastolicBP":120,
+//     "spO2":100,
+//     "pulse":1000,
+//     "options":[true,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+//     "menshistory":"none"
+//   }
+
+const Patient = require('./models/PatientHistory');
+
+//Patient History
+
+// CREATE
+app.post('/patientHistory', async (req, res) => {
+    try {
+        const patient = new Patient(req.body);
+        await patient.save();
+        res.status(200).send(patient);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// READ (GET patient history of all the patients)
+app.get('/patients', async (req, res) => {
+    try {
+        const patients = await Patient.find();
+        res.status(200).json(patients);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// READ (GET patient history by patient name)
+app.get('/patients/:name', async (req, res) => {
+    try {
+        const patient = await Patient.findOne({ name: req.params.name });
+        if (!patient) {
+            res.status(404).send('Patient history not found');
+            return;
+        }
+        res.status(200).json(patient);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// UPDATE Patient History
+app.put('/patients/:name', async (req, res) => {
+    try {
+        const patient = await Patient.findOneAndUpdate({ name: req.params.name }, req.body, { new: true });
+        if (!patient) {
+            return res.status(404).send('Patient not found');
+        }
+        res.send(patient);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+// DELETE Patient History
+app.delete('/patients/:name', async (req, res) => {
+    try {
+        const patient = await Patient.findOneAndDelete({ name: req.params.name });
+        if (!patient) {
+            return res.status(404).send('Patient not found');
+        }
+        res.send(patient);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+const port = 4000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});

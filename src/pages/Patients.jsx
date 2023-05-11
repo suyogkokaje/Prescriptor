@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import './patients.css';
+import "./patients.css";
+import axios from "axios";
 const Patients = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [patientsPerPage] = useState(10);
+  const [patientList, setPatientList] = useState([]);
 
-  const patientList = [
-    "Suyog Kokaje",
-    "Rohit Dhengale",
-    "Yash Bhujbal",
-    "Atharva Joshi",
-    "Pranali Jadhav",
-    "Kunal Raut",
-    "Sachin Tendulkar",
-    "Virat Kohli",
-    "Rohit Sharma",
-    "Suresh Raina",
-    "M S Dhoni",
-  ];
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/patients");
+        setPatientList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPatients();
+  }, []);
 
   // Logic for searching patients
   const filteredPatients = patientList.filter((patient) =>
-    patient.toLowerCase().includes(searchTerm.toLowerCase())
+    patient.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Logic for displaying patients
@@ -35,7 +35,11 @@ const Patients = () => {
 
   // Logic for displaying page numbers
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredPatients.length / patientsPerPage); i++) {
+  for (
+    let i = 1;
+    i <= Math.ceil(filteredPatients.length / patientsPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
@@ -65,8 +69,12 @@ const Patients = () => {
       <div className="patient-list">
         <ul>
           {currentPatients.map((patient) => (
-            <Link style={{ textDecoration: 'none', color:'black' }} to={`/patients/${patient}`} key={patient}>
-                <li key={patient}>{patient}</li>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={`/patients/${patient.name}`}
+              key={patient}
+            >
+              <li key={patient._id}>{patient.name}</li>
             </Link>
           ))}
         </ul>
