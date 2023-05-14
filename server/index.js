@@ -40,7 +40,7 @@ app.post('/patientHistory', async (req, res) => {
         await patient.save();
         res.status(200).send(patient);
     } catch (err) {
-        res.status(400).send(err);  
+        res.status(400).send(err);
     }
 });
 
@@ -99,25 +99,40 @@ const Prescription = require('./models/Prescription');
 //Create Prescription
 app.post('/prescriptions', async (req, res) => {
     const { name, lst } = req.body;
-  
+
     const newPrescription = new Prescription({
-      name: name,
-      lst: lst
+        name: name,
+        lst: lst
     });
-  
+
     try {
-      const result = await newPrescription.save();
-      res.status(201).json({
-        message: 'Prescription created successfully',
-        prescription: result
-      });
+        const result = await newPrescription.save();
+        res.status(201).json({
+            message: 'Prescription created successfully',
+            prescription: result
+        });
     } catch (error) {
-      res.status(500).json({
-        message: 'Error creating prescription',
-        error: error
-      });
+        res.status(500).json({
+            message: 'Error creating prescription',
+            error: error
+        });
     }
-  });
+});
+
+app.get('/prescriptions/:name', async (req, res) => {
+    const name = req.params.name;
+    try {
+        const prescriptions = await Prescription.find({ name: name });
+        res.json(prescriptions);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Get Prescription List by the name of the patient
+
+
 
 const port = 4000;
 app.listen(port, () => {

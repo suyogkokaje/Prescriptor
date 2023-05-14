@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./patients.css";
 import axios from "axios";
 const Patients = () => {
@@ -60,6 +60,8 @@ const Patients = () => {
     );
   });
 
+  const navigate = useNavigate();
+
   return (
     <div className="main">
       <div className="search-box">
@@ -73,13 +75,15 @@ const Patients = () => {
       <div className="patient-list">
         <ul>
           {currentPatients.map((patient) => (
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to={`/patients/${patient.name}`}
-              key={patient}
-            >
-              <li key={patient._id}>{patient.name}</li>
-            </Link>
+
+              <li key={patient._id}>
+                <div>{patient.name}</div>
+                <div className="btns-div">
+                  <button className="btn" onClick={()=>{navigate(`/patients/${patient.name}`)}}>View History</button>
+                  <button className="btn" onClick={()=>{navigate(`/prescriptions/${patient.name}`)}}>View Prescriptions</button>
+                </div>
+              </li>
+
           ))}
         </ul>
       </div>

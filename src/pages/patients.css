@@ -64,3 +64,17 @@
   gap: 1rem;
   margin-top: 2rem;
 }
+
+.patient-list .btns-div{
+  display: flex;
+  gap: 1rem;
+}
+
+.patient-list .btn{
+  width: 20%;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+}
