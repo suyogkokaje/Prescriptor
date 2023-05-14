@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PrescriptionForm from "../components/PrescriptionForm";
 import PrescriptionPage from "../components/PrescriptionPage";
-import prescription from "./prescription.css";
+import "./prescription.css";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 
@@ -14,6 +14,11 @@ const Prescription = () => {
   const [prescriptionList, setPrescriptionList] = useState([]);
   const handleAddPrescription = (prescription) => {
     setPrescriptionList([...prescriptionList, prescription]);
+  };
+
+  const handleSub = () => {
+    setPatientName("");
+    setPrescriptionList([]);
   };
 
   const createPDF = async () => {
@@ -40,9 +45,14 @@ const Prescription = () => {
           patientName={patientName}
         />
       </div>
-      <button className="btn" onClick={createPDF} type="button">
-        Download PDF
-      </button>
+      <div className="btn-div">
+        <button className="btn" onClick={createPDF} type="button">
+          Download PDF
+        </button>
+        <button className="btn" onClick={handleSub} type="button">
+          Reset
+        </button>
+      </div>
     </>
   );
 };

@@ -40,7 +40,7 @@ app.post('/patientHistory', async (req, res) => {
         await patient.save();
         res.status(200).send(patient);
     } catch (err) {
-        res.status(400).send(err);
+        res.status(400).send(err);  
     }
 });
 
@@ -93,6 +93,31 @@ app.delete('/patients/:name', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+const Prescription = require('./models/Prescription');
+
+//Create Prescription
+app.post('/prescriptions', async (req, res) => {
+    const { name, lst } = req.body;
+  
+    const newPrescription = new Prescription({
+      name: name,
+      lst: lst
+    });
+  
+    try {
+      const result = await newPrescription.save();
+      res.status(201).json({
+        message: 'Prescription created successfully',
+        prescription: result
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Error creating prescription',
+        error: error
+      });
+    }
+  });
 
 const port = 4000;
 app.listen(port, () => {

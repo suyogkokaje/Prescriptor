@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import prescriptionform from "./prescriptionform.css";
+import "./prescriptionform.css";
+import axios from "axios";
 
 const PrescriptionForm = ({ handleAddItem, handleSetPatientName }) => {
   const [name, setName] = useState("");
@@ -33,11 +34,39 @@ const PrescriptionForm = ({ handleAddItem, handleSetPatientName }) => {
     console.log(lst);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // prevent form submission
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/prescriptions",
+        {
+          name,
+          lst,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setName("");
+      setMedicine("");
+      setDays("");
+      setDosage("");
+      setInstructions("");
+      setLst([]);
+      console.log("This is the data:" + response.data); // log the response data
+    } catch (error) {
+      console.error(error); // log any errors
+    }
+  };
+
   return (
     <div className="form-parent">
       <div className="form-title">Prescription</div>
       <div className="form">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-tile">
             <label>Name of the Patient:</label>
             <input

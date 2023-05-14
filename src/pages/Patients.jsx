@@ -20,17 +20,21 @@ const Patients = () => {
     fetchPatients();
   }, []);
 
+  
+
   // Logic for searching patients
   const filteredPatients = patientList.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+
 
   // Logic for displaying patients
   const indexOfLastPatient = currentPage * patientsPerPage;
   const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
   const currentPatients = filteredPatients.slice(
     indexOfFirstPatient,
-    indexOfLastPatient
+    Math.min(indexOfLastPatient, filteredPatients.length)
   );
 
   // Logic for displaying page numbers

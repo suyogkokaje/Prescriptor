@@ -2,7 +2,7 @@ import React from "react";
 import prescriptionpage from "./prescriptionpage.css";
 
 
-const PrescriptionPage = ({ lst, patientName }) => {
+const PrescriptionPage = ({ lst, patientName}) => {
   return (
     <div className="page-parent" id="pdf">
       <div className="page">
