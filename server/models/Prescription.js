@@ -1,20 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const prescriptionSchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  lst: [{//list of objects
+  lst: [{
     medicine: {
       type: String,
       required: true
     },
-    days: {
-      type: Number,
+    preperation: {
+      type: String,
       required: true
     },
-    dosage: {
+    dose: {
+      type: String,
+      required: true
+    },
+    direction: {
+      type: String,
+      required: true
+    },
+    frequency: {
+      type: String,
+      required: true
+    },
+    duration: {
+      type: String,
+      required: true
+    },
+    totalQuantity: {
       type: String,
       required: true
     },

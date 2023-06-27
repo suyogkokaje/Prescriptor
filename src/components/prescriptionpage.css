@@ -1,87 +1,87 @@
-.page-parent{
-    width:50%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    /* align-items:center; */
-    margin-top: 4rem;
-}
-
-.page-parent .heading{
-    font-size: 1.7rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-}
-
-.page-parent  .address{
-    margin-bottom: 0.5rem;
-}
-
-.page-parent .personal{
-    /* text-align: left; */
+.page-parent {
     display: flex;
-    justify-content: space-around;
-    /* gap: 50%; */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .page {
+    width: 800px;
+    padding: 20px;
+    margin-left: 50px;
+    border: 1px solid #ccc;
+  }
+  
+  .heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .address {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .personal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .name,
+  .regno,
+  .degree,
+  .time,
+  .contact {
+    font-size: 14px;
+  }
+  
+  .line {
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0;
+  }
+  
+  .patient {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .pname,
+  .date {
+    font-size: 14px;
+  }
+  
+  .prescription-table {
     width: 100%;
-}
-
-.page-parent  .name{
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.page-parent  .time{
-    margin-bottom: 0.5rem;
-}
-
-.page-parent span{
-    font-weight: 600;
-    font-size: 1.1rem;
-    /* text-align: left; */
-}
-
-.page{
-    width:80%;
-    height:90%;
-    display:flex;
-    flex-direction:column;
-    /* justify-content:center; */
-    align-items:center;
-    border:3px solid black;
-}
-
-.line{
-    width:90%;
-    height:2px;
-    background-color:black;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-}
-
-.patient{
-    display:flex;
-    width:90%;
-    justify-content:space-between;
-}
-
-.prescription-table {
     border-collapse: collapse;
-    width: 90%;
-    margin-top: 1rem;
+    margin-top: 20px;
+    table-layout: fixed;
   }
   
-  .prescription-table th,
-  .prescription-table td {
-    border: 1px solid #ddd;
+  th,
+  td {
+    border: 1px solid #ccc;
     padding: 8px;
-    text-align: left;
+    font-size: 14px;
+    word-break: break-all;
   }
   
-  .prescription-table th {
+  th {
     background-color: #f2f2f2;
     font-weight: bold;
   }
-
- 
-
+  
+  td {
+    white-space: pre-wrap;
+  }
+  
+  @media (max-width: 600px) {
+    .page {
+      width: 100%;
+      border: none;
+    }
+  }
+  

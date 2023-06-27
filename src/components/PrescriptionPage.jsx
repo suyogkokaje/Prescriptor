@@ -44,9 +44,9 @@ const PrescriptionPage = ({ lst, patientName}) => {
         <table className="prescription-table">
           <thead>
             <tr>
-              <th>Name of the medicine</th>
+              <th>Medicine</th>
               <th>Days</th>
-              <th>Dosage Frequency</th>
+              <th>Dosage</th>
               <th>Instructions</th>
             </tr>
           </thead>
@@ -54,9 +54,10 @@ const PrescriptionPage = ({ lst, patientName}) => {
             {lst &&
               lst.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.medicine}</td>
-                  <td>{item.days}</td>
-                  <td>{item.dosage}</td>
+                  {/* display medicine and preperation below */}
+                  <td>{item.medicine }<br/>{item.preperation}</td>
+                  <td>{item.duration}<br/>{item.totalQuantity}</td>
+                  <td>{item.dose}<br/>{item.direction}<br/>{item.frequency}</td>
                   <td>{item.instructions}</td>
                 </tr>
               ))}
