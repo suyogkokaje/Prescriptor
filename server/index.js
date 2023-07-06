@@ -132,6 +132,30 @@ app.get('/prescriptions/:name', async (req, res) => {
 
 // Get Prescription List by the name of the patient
 
+const Medicine = require('./models/Medicine');
+
+// create medicine route
+app.post('/medicines', async (req, res) => {
+    try {
+        const medicine = new Medicine(req.body);
+        const savedMedicine = await medicine.save();
+        res.status(201).json(savedMedicine);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to create medicine' });
+    }
+});
+
+// get all medicines route
+
+app.get('/medicines', async (req, res) => {
+    try {
+        const medicines = await Medicine.find();
+        res.json(medicines);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch medicines' });
+    }
+});
+
 
 
 const port = 4000;

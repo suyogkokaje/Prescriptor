@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import "./prescriptionform.css";
 import axios from "axios";
 
@@ -12,39 +12,21 @@ const PrescriptionForm = ({ handleAddItem, handleSetPatientName }) => {
     handleSetPatientName(name);
   };
 
-  const medicineList = [
-    {
-      medicine: "chandraprabha vati",
-      preparation: "Tab",
-      dose: "1 tablet",
-      direction: "After meal",
-      frequency: "Twice daily",
-      duration: "10 days",
-      totalQuantity: "20 tablets",
-      instructions: "Take with water after meals.",
-    },
-    {
-      medicine: "cmandraprabha vati",
-      preparation: "Tab",
-      dose: "1 tablet",
-      direction: "After meal",
-      frequency: "Twice daily",
-      duration: "10 days",
-      totalQuantity: "20 tablets",
-      instructions: "Take with water after meals.",
-    },
-    {
-      medicine: "amritarishta",
-      preparation: "Tab",
-      dose: "1 tablet",
-      direction: "After meal",
-      frequency: "Twice daily",
-      duration: "10 days",
-      totalQuantity: "20 tablets",
-      instructions: "Take with water after meals.",
-    },
-  ];
 
+  const [medicineList, setMedicineList] = useState([]);
+
+  useEffect(() => {
+    const fetchMedicineList = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/medicines");
+        setMedicineList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMedicineList();
+  }, []);
   const [medicine, setMedicine] = useState("");
   const [preperation, setPreperation] = useState("");
   const [dose, setDose] = useState("");
